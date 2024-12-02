@@ -1,0 +1,52 @@
+:repository-owner: fatlab101
+:repository-name: Esp32IcmpPing
+:arduino-libs: arduino-libraries
+
+An ESP32 class to do an ICMP Echo 'Ping' of a remote machine:
+
+
+```cpp
+
+#include <Esp32IcmpPing.h>
+
+//To ping google DNS
+//We Set recv timeout to 1/2 second and Count to 4
+Esp32IcmpPing pingClient(IPAddress(8,8,4,4), 4, 500);  
+
+void callPing(String* s=nullptr) 
+{
+    PingResults results;
+    if(pingClient.ping(results, &Serial))
+    {
+      results.PrintState(&Serial);
+      if(s!=nullptr)
+        *s=results.ResultString(true);
+    }
+    else
+    {
+       if(s!=nullptr)
+          *s="Failed Ping!";
+    }
+}
+
+
+```
+
+
+== License ==
+
+Copyright (c) 2024 Fatlab Software.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
