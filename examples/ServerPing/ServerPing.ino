@@ -100,10 +100,8 @@ void setup()
     server.onNotFound(notFound);
     server.begin();
 
-    //Do a ping!
-    String s;
-    callPing(&s);
-    Serial.println(s);
+  //Spin up connection checker Task
+  xTaskCreate(Esp32ConnectionChecker::ConnectionCheckTask, "CheckConnectTask", 4096, NULL, 1, NULL);
 }
 
 void loop() 
