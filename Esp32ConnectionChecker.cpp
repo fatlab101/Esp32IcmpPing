@@ -43,6 +43,8 @@ void Esp32ConnectionChecker::ConnectionCheckTask(void *arg)
 			Serial.println("Not Connected");
 			_connected = false;
 		}
-		delay(10000);
+		vTaskDelay(5000);
 	}
+	// an important part of the task is to kill the task if it ever gets to this point. 
+	vTaskDelete(nullptr);
 }
